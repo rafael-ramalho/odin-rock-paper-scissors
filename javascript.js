@@ -17,21 +17,6 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    let choice = prompt();
-    
-    if (choice === 'rock') {
-        return choice;
-    } else if (choice === 'paper') {
-        return choice;
-    } else if (choice === 'scissors') {
-        return choice;
-    } else {
-        return alert("Escolha inválida");
-    }
-}
-
-
 function playRound(humanChoice, computerChoice) {
     if (humanChoice.toLowerCase() === 'rock' && computerChoice.toLowerCase() === 'scissors' 
     || humanChoice.toLowerCase() === 'paper' && computerChoice.toLowerCase() === 'rock'
@@ -48,31 +33,19 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-function playGame() {
-    let humanSelection = getHumanChoice();
-    let computerSelection = getComputerChoice();
-    playRound(humanSelection, computerSelection);
-    humanSelection = getHumanChoice();
-    computerSelection = getComputerChoice();
-    playRound(humanSelection, computerSelection);
-    humanSelection = getHumanChoice();
-    computerSelection = getComputerChoice();
-    playRound(humanSelection, computerSelection);
-    humanSelection = getHumanChoice();
-    computerSelection = getComputerChoice();
-    playRound(humanSelection, computerSelection);
-    humanSelection = getHumanChoice();
-    computerSelection = getComputerChoice();
-    playRound(humanSelection, computerSelection);
-
-
-    if (humanScore > computerScore){
-        console.log("You win!")
-    } else if (computerScore > humanScore){
-        console.log("You lose!")
-    } else {
-        console.log("Draw.")
-    }
-}
-
-playGame();
+const choices = document.querySelectorAll("button");
+const result = document.querySelector("#result");
+choices.forEach((button) => {
+    button.addEventListener('click', () => {
+        playRound(button.textContent, getComputerChoice());
+        if (humanScore === 5) {
+            result.textContent = 'You win!';
+            humanScore = 0;
+            computerScore = 0;
+        } else if (computerScore === 5) {
+            result.textContent = 'You lose!';
+            humanScore = 0;
+            computerScore = 0;
+        }
+    })
+})
